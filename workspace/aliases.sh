@@ -89,6 +89,9 @@ alias reload="source ~/.aliases && echo \"$COL_GREEN ==> Aliases Reloaded... $CO
 alias run="npm run"
 alias tree="xtree"
 
+#magento
+alias magento="./bin/magento"
+
 # Xvfb
 alias xvfb="Xvfb -ac :0 -screen 0 1024x768x16 &"
 
