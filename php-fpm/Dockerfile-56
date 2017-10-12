@@ -48,7 +48,7 @@ RUN if [ ${INSTALL_SOAP} = true ]; then \
     apt-get update -yqq && \
     apt-get -y install libxml2-dev php-soap && \
     docker-php-ext-install soap \
-;fi
+    ;fi
 
 #####################################
 # xDebug:
@@ -61,8 +61,8 @@ RUN if [ ${INSTALL_XDEBUG} = true ]; then \
     # workaround for https://github.com/docker-library/php/issues/133
     #     - Xdebug breaks on access to class static property
     apt-get install -y php5-xdebug && \
-	echo "zend_extension=/usr/lib/php5/20131226/xdebug.so" > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-;fi
+    echo "zend_extension=/usr/lib/php5/20131226/xdebug.so" > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    ;fi
 
 # Copy xdebug configration for remote debugging
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
@@ -78,7 +78,7 @@ RUN if [ ${INSTALL_XDEBUG} = false -a ${INSTALL_BLACKFIRE} = true ]; then \
     && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp \
     && mv /tmp/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so \
     && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > $PHP_INI_DIR/conf.d/blackfire.ini \
-;fi
+    ;fi
 
 #####################################
 # PHP REDIS EXTENSION FOR PHP 5
@@ -90,7 +90,7 @@ RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
     printf "\n" | pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
     &&  docker-php-ext-enable redis \
-;fi
+    ;fi
 
 #####################################
 # Swoole EXTENSION FOR PHP 5
@@ -101,7 +101,7 @@ RUN if [ ${INSTALL_SWOOLE} = true ]; then \
     # Install Php Swoole Extension
     pecl install swoole \
     &&  docker-php-ext-enable swoole \
-;fi
+    ;fi
 
 #####################################
 # MongoDB:
@@ -112,7 +112,7 @@ RUN if [ ${INSTALL_MONGO} = true ]; then \
     # Install the mongodb extension
     pecl install mongodb && \
     docker-php-ext-enable mongodb \
-;fi
+    ;fi
 
 #####################################
 # ZipArchive:
@@ -122,7 +122,7 @@ ARG INSTALL_ZIP_ARCHIVE=false
 RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
     # Install the zip extension
     docker-php-ext-install zip \
-;fi
+    ;fi
 
 #####################################
 # bcmath:
@@ -132,7 +132,7 @@ ARG INSTALL_BCMATH=false
 RUN if [ ${INSTALL_BCMATH} = true ]; then \
     # Install the bcmath extension
     docker-php-ext-install bcmath \
-;fi
+    ;fi
 
 #####################################
 # PHP Memcached:
@@ -143,7 +143,7 @@ RUN if [ ${INSTALL_MEMCACHED} = true ]; then \
     # Install the php memcached extension
     pecl install memcached-2.2.0 && \
     docker-php-ext-enable memcached \
-;fi
+    ;fi
 
 #####################################
 # Exif:
@@ -153,7 +153,7 @@ ARG INSTALL_EXIF=false
 RUN if [ ${INSTALL_EXIF} = true ]; then \
     # Enable Exif PHP extentions requirements
     docker-php-ext-install exif \
-;fi
+    ;fi
 
 #####################################
 # PHP Aerospike:
@@ -169,14 +169,14 @@ RUN if [ ${INSTALL_AEROSPIKE} = true ]; then \
     && mkdir -p aerospike-client-php \
     && tar -C aerospike-client-php -zxvf /tmp/aerospike-client-php.tar.gz --strip 1 \
     && ( \
-        cd aerospike-client-php/src/aerospike \
-        && phpize \
-        && ./build.sh \
-        && make install \
+    cd aerospike-client-php/src/aerospike \
+    && phpize \
+    && ./build.sh \
+    && make install \
     ) \
     && rm /tmp/aerospike-client-php.tar.gz \
     && docker-php-ext-enable aerospike \
-;fi
+    ;fi
 
 #####################################
 # Opcache:
@@ -185,7 +185,7 @@ RUN if [ ${INSTALL_AEROSPIKE} = true ]; then \
 ARG INSTALL_OPCACHE=false
 RUN if [ ${INSTALL_OPCACHE} = true ]; then \
     docker-php-ext-install opcache \
-;fi
+    ;fi
 
 # Copy opcache configration
 COPY ./opcache.ini /usr/local/etc/php/conf.d/opcache.ini
@@ -200,7 +200,7 @@ COPY ./mysql.ini /usr/local/etc/php/conf.d/mysql.ini
 RUN if [ ${INSTALL_MYSQLI} = true ]; then \
     docker-php-ext-install mysql && \
     docker-php-ext-install mysqli \
-;fi
+    ;fi
 
 #####################################
 # Tokenizer Modifications:
@@ -209,7 +209,7 @@ RUN if [ ${INSTALL_MYSQLI} = true ]; then \
 ARG INSTALL_TOKENIZER=false
 RUN if [ ${INSTALL_TOKENIZER} = true ]; then \
     docker-php-ext-install tokenizer \
-;fi
+    ;fi
 
 #####################################
 # Human Language and Character Encoding Support:
@@ -221,7 +221,7 @@ RUN if [ ${INSTALL_INTL} = true ]; then \
     apt-get install -y zlib1g-dev libicu-dev g++ && \
     docker-php-ext-configure intl && \
     docker-php-ext-install intl \
-;fi
+    ;fi
 
 #####################################
 # GHOSTSCRIPT:
@@ -232,7 +232,7 @@ RUN if [ ${INSTALL_GHOSTSCRIPT} = true ]; then \
     # Install the ghostscript extension for PDF editing
     apt-get update -yqq && \
     apt-get install -y poppler-utils ghostscript \
-;fi
+    ;fi
 
 #####################################
 # LDAP:
@@ -244,7 +244,7 @@ RUN if [ ${INSTALL_LDAP} = true ]; then \
     apt-get install -y libldap2-dev && \
     docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
     docker-php-ext-install ldap \
-;fi
+    ;fi
 
 #####################################
 # SQL SERVER:
@@ -256,7 +256,7 @@ RUN if [ ${INSTALL_MSSQL} = true ]; then \
     apt-get -y install php5-sybase freetds-bin && \
     cp /usr/lib/php5/20131226/*.so /usr/local/lib/php/extensions/no-debug-non-zts-20131226/ && \
     docker-php-ext-enable mssql pdo pdo_dblib \
-;fi
+    ;fi
 
 #####################################
 # Image optimizers:
@@ -267,7 +267,7 @@ ENV INSTALL_IMAGE_OPTIMIZERS ${INSTALL_IMAGE_OPTIMIZERS}
 RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
     apt-get update -yqq && \
     apt-get install -y --force-yes jpegoptim optipng pngquant gifsicle \
-;fi
+    ;fi
 
 #####################################
 # ImageMagick:
@@ -280,7 +280,20 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
     apt-get install -y libmagickwand-dev imagemagick && \ 
     pecl install imagick && \
     docker-php-ext-enable imagick \
-;fi
+    ;fi
+
+#####################################
+# XSL:
+#####################################
+
+ARG INSTALL_XSL=false
+RUN if [ ${INSTALL_XSL} = true ]; then \
+    # Install XSL PHP extentions requirements
+    apt-get update -yqq && \
+    apt-get -y install libxslt-dev && \
+    docker-php-ext-install xsl \
+    ;fi
+
 
 #
 #--------------------------------------------------------------------------
