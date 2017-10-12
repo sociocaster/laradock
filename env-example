@@ -61,6 +61,9 @@ WORKSPACE_NODE_VERSION=stable
 WORKSPACE_YARN_VERSION=latest
 WORKSPACE_TIMEZONE=UTC
 WORKSPACE_SSH_PORT=2222
+WORKSPACE_INSTALL_ZIP_ARCHIVE=false
+WORKSPACE_INSTALL_INTL=false
+WORKSPACE_INSTALL_XSL=false
 
 ### PHP_FPM ############################################################################################################
 
