@@ -657,7 +657,7 @@ RUN if [ ${INSTALL_DUSK_DEPS} = true ]; then \
 ARG INSTALL_ZIP_ARCHIVE=false
 RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
     # Install the zip extension
-    docker-php-ext-install zip \
+    apt-get install -y php7.1-ldap \
     ;fi
 
 #####################################
@@ -669,8 +669,7 @@ RUN if [ ${INSTALL_INTL} = true ]; then \
     # Install intl and requirements
     apt-get update -yqq && \
     apt-get install -y zlib1g-dev libicu-dev g++ && \
-    docker-php-ext-configure intl && \
-    docker-php-ext-install intl \
+    apt-get install -y php7.1-intl \
     ;fi
 
 #####################################
@@ -682,7 +681,7 @@ RUN if [ ${INSTALL_XSL} = true ]; then \
     # Install XSL PHP extentions requirements
     apt-get update -yqq && \
     apt-get -y install libxslt-dev && \
-    docker-php-ext-install xsl \
+    apt-get install -y php7.1-xsl \
     ;fi
 
 #
