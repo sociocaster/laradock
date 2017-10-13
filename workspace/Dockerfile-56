@@ -557,36 +557,38 @@ RUN if [ ${INSTALL_DUSK_DEPS} = true ]; then \
 #####################################
 # ZipArchive:
 #####################################
-
+USER root
 ARG INSTALL_ZIP_ARCHIVE=false
+ENV INSTALL_ZIP_ARCHIVE ${INSTALL_ZIP_ARCHIVE}
 RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
     # Install the zip extension
-    docker-php-ext-install zip \
+    apt-get install -y php7.1-ldap \
     ;fi
 
 #####################################
 # Human Language and Character Encoding Support:
 #####################################
-
+USER root
 ARG INSTALL_INTL=false
+ENV INSTALL_INTL ${INSTALL_INTL}
 RUN if [ ${INSTALL_INTL} = true ]; then \
     # Install intl and requirements
     apt-get update -yqq && \
     apt-get install -y zlib1g-dev libicu-dev g++ && \
-    docker-php-ext-configure intl && \
-    docker-php-ext-install intl \
+    apt-get install -y php7.1-intl \
     ;fi
 
 #####################################
 # XSL:
 #####################################
-
+USER root
 ARG INSTALL_XSL=false
+ENV INSTALL_XSL ${INSTALL_XSL}
 RUN if [ ${INSTALL_XSL} = true ]; then \
     # Install XSL PHP extentions requirements
     apt-get update -yqq && \
     apt-get -y install libxslt-dev && \
-    docker-php-ext-install xsl \
+    apt-get install -y php7.1-xsl \
     ;fi
 #
 #--------------------------------------------------------------------------
